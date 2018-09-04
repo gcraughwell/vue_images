@@ -1,5 +1,6 @@
 import api from "../../api/imgur";
 import qs from "qs";
+import { router } from "../../main";
 
 const state = {
   token: window.localStorage.getItem("imgur_token")
@@ -20,10 +21,14 @@ const actions = {
   finalizeLogin({ commit }, hash) {
     const query = qs.parse(hash.replace("#", ""));
     commit("setToken", query.access_token);
+    //setd the token from query.access_token as imgur token so any user signing in for the first
+    //time the token will be stored on localStorage and if there wont ask them to log in.
     window.localStorage.setItem("imgur_token", query.access_token);
+    router.push("/"); //pushes the app to the / after auth process
   },
   logout: ({ commit }) => {
     commit("setToken", null);
+    window.localStorage.removeItem("imgur_token");
   }
 };
 

@@ -1,16 +1,16 @@
 <template>
   <div>
   <div class="ui secondary pointing menu">
-      <a href="/" class="active item">
+      <router-link to="/" class="active item">
         Image Storage
-      </a>
+      </router-link>
 
     <div class="right menu">
        <!-- v-if if logged in show or so v=else -->
       <div v-if="isLoggedIn" class="horizontial">
-<a class="item ">Galleries</a>
-<a class="item">Upload</a>
-<a class="item">Logout</a>
+<router-link to="/" class="item ">Galleries</router-link>
+<router-link to="/upload" class="item">Upload</router-link>
+<a class="item" @click="logout">Logout</a>
       </div>
       <a v-else href="#" class="ui item" @click="login">Login</a>
     </div>
@@ -28,7 +28,7 @@ export default {
   computed: mapGetters(["isLoggedIn"]),
   //maps the action login to component
   //methods is for actions
-  methods: mapActions(["login"])
+  methods: mapActions(["login", "logout"])
 
   // below allows you to use mutiple methods.
   // ...methods: mapActions(['login'])
